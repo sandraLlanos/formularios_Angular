@@ -1,6 +1,6 @@
-<h4>Formularios <small>data</small></h4>
+<h4>Formularios <small>template</small></h4>
 <hr>
-<form (ngSubmit)="guardar()" novalidate="">
+<form (ngSubmit)="guardar(forma)" #forma="ngForm" novalidate="">
 
   <div>
 
@@ -12,10 +12,18 @@
                type="text"
                placeholder="Nombre"
                name="nombre"
-               ngModel
-               minlength="5"
+               [(ngModel)]="usuario.nombre"
+               minlength="2"
                required
+               #refngModel="ngModel"
                >
+
+          <div *ngIf="refngModel.errors?.required">
+            Este campo es requerido
+          </div>
+          <div *ngIf="refngModel.errors?.minlength">
+            Minimo {{ refngModel.errors.minlength.requiredLength }} caracteres
+          </div>
       </div>
     </div>
 
@@ -23,11 +31,14 @@
       <label class="col-2 col-form-label">Apellido</label>
       <div class="col-8">
 
+        <!-- [ngModel]="usuario.apellido"  se usa cuando solo deseo escuchar cambios--> 
+        <!-- [(ngModel)]="usuario.apellido"  se usa cuando solo deseo escuchar y emitir cambios--> 
         <input class="form-control"
                type="text"
                placeholder="Apellido"
                name="apellido"
-               ngModel
+               [(ngModel)]="usuario.apellido"
+               required
                >
       </div>
     </div>
@@ -42,7 +53,9 @@
              type="email"
              placeholder="Correo electrónico"
              name="correo"
-             ngModel
+             [(ngModel)]="usuario.email"
+             required
+             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
               >
     </div>
   </div>
