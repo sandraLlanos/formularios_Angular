@@ -9,6 +9,7 @@
       <div class="col-8">
 
         <input class="form-control"
+               [ngClass]="{'is-invalid': (refngModel.errors?.required || refngModel.errors?.minlength) && refngModel.touched }"
                type="text"
                placeholder="Nombre"
                name="nombre"
@@ -18,12 +19,12 @@
                #refngModel="ngModel"
                >
 
-          <div *ngIf="refngModel.errors?.required">
-            Este campo es requerido
-          </div>
-          <div *ngIf="refngModel.errors?.minlength">
-            Minimo {{ refngModel.errors.minlength.requiredLength }} caracteres
-          </div>
+              <div *ngIf="refngModel.errors?.required && forma.controls.nombre.touched " class="invalid-feedback">
+                Este campo es requerido
+              </div>
+              <div *ngIf="refngModel.errors?.minlength" class="invalid-feedback">
+                Minimo {{ refngModel.errors.minlength.requiredLength }} caracteres
+              </div>
       </div>
     </div>
 
@@ -34,12 +35,17 @@
         <!-- [ngModel]="usuario.apellido"  se usa cuando solo deseo escuchar cambios--> 
         <!-- [(ngModel)]="usuario.apellido"  se usa cuando solo deseo escuchar y emitir cambios--> 
         <input class="form-control"
+               [ngClass]="{'is-invalid': refapellido.errors?.required && refapellido.touched }"
                type="text"
                placeholder="Apellido"
                name="apellido"
                [(ngModel)]="usuario.apellido"
                required
+               #refapellido="ngModel"
                >
+              <div *ngIf="refapellido.errors?.required && forma.controls.apellido.touched" class="invalid-feedback">
+              Este campo es requerido
+              </div>
       </div>
     </div>
 
@@ -50,13 +56,21 @@
     <div class="col-8">
 
       <input class="form-control"
+             [ngClass]="{'is-invalid': (refCorreo.errors?.required || refCorreo.errors?.pattern) && refCorreo.touched }"
              type="email"
              placeholder="Correo electrónico"
              name="correo"
              [(ngModel)]="usuario.email"
              required
              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+             #refCorreo="ngModel"
               >
+            <div *ngIf="refCorreo.errors?.required && forma.controls.correo.touched" class="invalid-feedback">
+              Este campo es requerido
+            </div>
+            <div *ngIf="refCorreo.errors?.pattern" class="invalid-feedback">
+              Este no es un correo valido
+            </div>
     </div>
   </div>
 
@@ -65,7 +79,9 @@
   <div class="form-group row">
     <label class="col-2 col-form-label">&nbsp;</label>
     <div class="input-group col-md-8">
-      <button type="submit" class="btn btn-outline-primary">
+      <button [disabled]="forma.invalid"
+              type="submit"
+              class="btn btn-outline-primary">
         Guardar
       </button>
     </div>
