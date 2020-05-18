@@ -14,7 +14,10 @@ export class DataComponent {
   constructor() { 
 
     this.forma = new FormGroup({
-      'nombre': new FormControl('Sandra', Validators.required ),
+      'nombre': new FormControl('', [
+                                            Validators.required,
+                                            Validators.minLength(3)
+                                          ]),
       'apellido': new FormControl('',     Validators.required ),
       'correo': new FormControl('',       [
                                             Validators.required, 

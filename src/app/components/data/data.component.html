@@ -8,10 +8,21 @@
       <label class="col-2 col-form-label">Nombre</label>
       <div class="col-8">
 
-        <input class="form-control"
+        <input [ngClass]="{'is-invalid': !forma.get('nombre').valid && forma.controls['nombre'].touched}"
+               class="form-control"
                type="text"
                placeholder="Nombre"
                formControlName="nombre">
+
+              <div *ngIf="forma.controls['nombre'].errors?.required" 
+                   class="invalid-feedback">
+                Este campo es requerido
+              </div>
+              <div *ngIf="forma.controls['nombre'].errors?.minlength" 
+                   class="invalid-feedback">
+                minimo 3 caracteres
+              </div>
+
       </div>
     </div>
 
@@ -19,10 +30,16 @@
       <label class="col-2 col-form-label">Apellido</label>
       <div class="col-8">
 
-        <input class="form-control"
+        <input [ngClass]="{'is-invalid': !forma.get('apellido').valid && forma.controls['apellido'].touched}"
+               class="form-control"
                type="text"
                placeholder="Apellido"
                formControlName="apellido">
+
+               <div *ngIf="forma.controls['apellido'].errors?.required" 
+                   class="invalid-feedback">
+                Este campo es requerido
+              </div>
       </div>
     </div>
 
@@ -32,10 +49,20 @@
     <label class="col-2 col-form-label">Correo</label>
     <div class="col-8">
 
-      <input class="form-control"
+      <input [ngClass]="{'is-invalid': !forma.get('correo').valid && forma.controls['correo'].touched}"
+             class="form-control"
              type="email"
              placeholder="Correo electrónico"
              formControlName="correo">
+
+             <div *ngIf="forma.controls['correo'].errors?.required" 
+                class="invalid-feedback">
+              Este campo es requerido
+            </div>
+            <div *ngIf="forma.controls['correo'].errors?.pattern" 
+                class="invalid-feedback">
+              no es un formato de correo valido
+            </div>
     </div>
   </div>
 
