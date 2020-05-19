@@ -1,24 +1,24 @@
 <h4>Formularios <small>data</small></h4>
 <hr>
-<form [formGroup]="forma" (ngSubmit)="guardarCambios()" novalidate="novalidate">
+<form [formGroup]="forma" (ngSubmit)="guardarCambios()">
 
-  <div>
+  <div formGroupName="nombrecompleto">
 
     <div class="form-group row">
       <label class="col-2 col-form-label">Nombre</label>
       <div class="col-8">
 
-        <input [ngClass]="{'is-invalid': !forma.get('nombre').valid && forma.controls['nombre'].touched}"
+        <input [ngClass]="{'is-invalid': !forma.get('nombrecompleto.nombre').valid && forma.get('nombrecompleto.nombre').touched}"
                class="form-control"
                type="text"
                placeholder="Nombre"
                formControlName="nombre">
 
-              <div *ngIf="forma.controls['nombre'].errors?.required" 
+              <div *ngIf="forma.get('nombrecompleto.nombre').errors?.required" 
                    class="invalid-feedback">
                 Este campo es requerido
               </div>
-              <div *ngIf="forma.controls['nombre'].errors?.minlength" 
+              <div *ngIf="forma.get('nombrecompleto.nombre').errors?.minlength" 
                    class="invalid-feedback">
                 minimo 3 caracteres
               </div>
@@ -29,14 +29,14 @@
     <div class="form-group row">
       <label class="col-2 col-form-label">Apellido</label>
       <div class="col-8">
-
-        <input [ngClass]="{'is-invalid': !forma.get('apellido').valid && forma.controls['apellido'].touched}"
+        <!-- [ngClass]="{'is-invalid': !forma.get('apellido').valid && forma.controls['apellido'].touched}" -->
+        <input [ngClass]="{'is-invalid': !forma.controls['nombrecompleto'].controls['apellido'].valid && forma.get('nombrecompleto.apellido').touched}"
                class="form-control"
                type="text"
                placeholder="Apellido"
                formControlName="apellido">
 
-               <div *ngIf="forma.controls['apellido'].errors?.required" 
+               <div *ngIf="forma.get('nombrecompleto.apellido').errors?.required" 
                    class="invalid-feedback">
                 Este campo es requerido
               </div>
