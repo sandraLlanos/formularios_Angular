@@ -56,6 +56,21 @@ export class DataComponent {
                                                   ])
     this.forma.setValue(this.usuario);
 
+
+    //observador que esta pendiente de los cambios de la data
+
+    // this.forma.valueChanges.subscribe( data => {
+    //   console.log(data);
+    // })
+    this.forma.controls['usuario'].valueChanges.subscribe( data => {
+      console.log(data);
+    })
+    this.forma.controls['usuario'].statusChanges.subscribe( data => {
+      console.log(data);
+    })
+    this.forma.statusChanges.subscribe( data => {
+      console.log(data);
+    })
   }
 
   agregarPasatiempos(){
