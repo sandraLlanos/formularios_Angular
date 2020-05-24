@@ -16,7 +16,9 @@ export class DataComponent {
       apellido: 'llanos'
     },
     correo: 'sllanos@gmail.com',
-    pasatiempos: ['comer']
+    pasatiempos: ['comer'],
+    password1:null,
+    password2:null
   }
 
   forma: FormGroup;
@@ -31,7 +33,7 @@ export class DataComponent {
           Validators.required,
           Validators.minLength(3)
         ]),
-        'apellido': new FormControl('', Validators.required)
+        'apellido': new FormControl('', [Validators.required, this.nollanos])
 
       }),
       'correo': new FormControl('', [
@@ -40,10 +42,15 @@ export class DataComponent {
       ]),
       'pasatiempos': new FormArray([
         new FormControl('Correr', Validators.required)
-      ])
+      ]),
+      'password1': new FormControl('', Validators.required),
+      'password2': new FormControl()
 
     })
 
+    this.forma.controls['password2'].setValidators([Validators.required, 
+                                                    this.noigual.bind(this.forma)
+                                                  ])
     this.forma.setValue(this.usuario);
 
   }
@@ -54,11 +61,33 @@ export class DataComponent {
       new FormControl('', Validators.required)
     )
   }
+
+  nollanos(control:FormControl):{ [ s:string ]:boolean }{
+
+    if (control.value === 'llanos') {
+      return {
+        nollanos:true
+      }
+    }
+    return null;
+  }
+  noigual(control:FormControl):{ [ s:string ]:boolean }{
+    console.log(this);
+    let forma:any = this;
+
+    if (control.value !== forma.controls['password1'].value ) {
+      return {
+        noigual:true
+      }
+    }
+    return null;
+  }
+
   guardarCambios() {
     console.log(this.forma);
     console.log(this.forma.value);
 
-    // this.forma.reset(this.usuario);
+    this.forma.reset(this.usuario);
     this.forma.reset({
       nombrecompleto: {
         nombre: '',
