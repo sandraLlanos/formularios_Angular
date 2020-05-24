@@ -67,6 +67,17 @@
   </div>
 
   <div class="form-group row">
+    <label class="col-2 col-form-label">usuario</label>
+    <div class="col-8">
+
+      <input type="text"
+             placeholder="Ingrese usuario"
+             class="form-control"
+             formControlName="usuario">
+
+    </div>
+  </div>
+  <div class="form-group row">
     <label class="col-2 col-form-label">Contraseña</label>
     <div class="col-8">
 
@@ -112,5 +123,7 @@
   </div>
 
   {{ forma.valid }}
+  <br>
+  {{ forma.status }}
 
 </form>
